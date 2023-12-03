@@ -649,7 +649,7 @@ void plane(){
     double a = t*90.0;
 
     /// Main body
-    glColor3d(0,0,1);
+    glColor3d(0.5,1,0);
     glPushMatrix();
         glTranslated(0,0,0);
         glScaled(3,0.4,0.5);
