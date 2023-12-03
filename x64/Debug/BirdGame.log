@@ -1,0 +1,39 @@
+﻿  main.cpp
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(24,13): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(25,21): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(27,14): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(27,18): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(27,26): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(27,30): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(27,42): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(28,14): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(28,22): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(28,30): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(28,38): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(28,42): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(28,50): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(29,14): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(29,26): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(29,30): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(29,38): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(29,42): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(912,12): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(933,19): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(934,21): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(935,19): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(999,20): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(1000,25): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(1019,24): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(1019,21): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(1019,17): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(1020,27): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(1033,24): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(1033,21): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(1033,17): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(1034,27): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(1078,96): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(1091,21): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(1126,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(1141,23): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\main.cpp(1144,23): warning C4305: '-=': truncation from 'double' to 'float'
+  BirdGame.vcxproj -> C:\Users\Megan Chen\Desktop\CS155\BirdGame_Final\BirdGame\x64\Debug\BirdGame.exe
