@@ -1,4 +1,4 @@
-# PlaneGame-OpenGL
+# BirdGame-OpenGL
 **CSCI 155 Final Project** <br>
 
 Julia Hsing & Megan Chen <br>
