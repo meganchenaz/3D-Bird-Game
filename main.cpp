@@ -53,8 +53,7 @@ float torusPosY[7] = {2, 3, 10, 6, 7, 4, 1};
  * @param width The width of the window.
  * @param height The height of the window.
  */
-static void resize(int width, int height)
-{
+static void resize(int width, int height) {
     // calculate the aspect ratio
     const float ar = (float) width / (float) height;
 
@@ -893,7 +892,7 @@ void environment(int n) {
 /**
  * Render the 3D scene.
  */
-void draw(){
+void draw() {
     // get the elapsed time in seconds
     double t = glutGet(GLUT_ELAPSED_TIME) / 1000.0;
 
@@ -1002,8 +1001,7 @@ void draw(){
  * @param *str The input string to be rendered.
  * @param x, y, z The 3D coordinates where the text will be positioned.
  */
-void drawBitmapText(char *str, float x, float y, float z)
-{
+void drawBitmapText(char *str, float x, float y, float z) {
 	char *c;
 
     // set the position for 3D rasterization
@@ -1023,8 +1021,7 @@ void drawBitmapText(char *str, float x, float y, float z)
  * @param str The input string to be rendered.
  * @param x, y, z The 3D coordinates where the text will be positioned.
  */
-void drawStrokeText(char* str, int x, int y, int z)
-{
+void drawStrokeText(char* str, int x, int y, int z) {
 	  char *c;
 
       // push the current matrix onto the matrix stack
@@ -1053,8 +1050,7 @@ void drawStrokeText(char* str, int x, int y, int z)
  * @param str The input string to be rendered.
  * @param x, y, z The 3D coordinates where the text will be positioned.
  */
-void drawStrokeText2(char* str, int x, int y, int z)
-{
+void drawStrokeText2(char* str, int x, int y, int z) {
 	  char *c;
 
       // push the current matrix onto the matrix stack
@@ -1083,8 +1079,7 @@ void drawStrokeText2(char* str, int x, int y, int z)
  * @param c The character to be drawn.
  * @param x, y, z The 3D coordinates where the character will be positioned.
  */
-void drawStrokeChar(char c, float x, float y, float z)
-{
+void drawStrokeChar(char c, float x, float y, float z) {
 	  glPushMatrix();
           glTranslatef(x, y + 8, z);
           glScalef(0.002f, 0.002f, z);
@@ -1096,8 +1091,7 @@ void drawStrokeChar(char c, float x, float y, float z)
 /**
  * Render the scene and UI based on user interactions.
  */
-static void display(void)
-{
+static void display(void) {
     // get the elapsed time in seconds
     const double t = glutGet(GLUT_ELAPSED_TIME) / 1000.0;
 
@@ -1176,8 +1170,7 @@ static void display(void)
  * @param key ASCII value of the pressed key.
  * @param x, y The mouse's cursor position during the key press.
  */
-static void key(unsigned char key, int x, int y)
-{
+static void key(unsigned char key, int x, int y) {
     float frac = 0.3;
     float rotFrac = 1;
 
@@ -1254,8 +1247,7 @@ static void key(unsigned char key, int x, int y)
 /**
  * Ensure that the scene is continuously rendered.
  */
-static void idle(void)
-{
+static void idle(void) {
     glutPostRedisplay();
 }
 
@@ -1276,8 +1268,7 @@ const GLfloat high_shininess[] = { 100.0f };
 
 /* PROGRAM ENTRY POINT */
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     // initialize GLUT
     glutInit(&argc, argv);
 

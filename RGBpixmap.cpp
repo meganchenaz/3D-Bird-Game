@@ -17,8 +17,7 @@ static GLubyte checkImage[checkImageHeight][checkImageWidth][4];
  * Generate a simple black-and-white checkerboard 
  * pattern and store it in the checkImage array.
  */
-void RGBpixmap::makeCheckImage()
-{
+void RGBpixmap::makeCheckImage() {
 	int i, j, c;
 	// iterate through each pixel in the checkImage array
 	for (i = 0; i < checkImageHeight; i++) {
@@ -43,8 +42,7 @@ void RGBpixmap::makeCheckImage()
  * Generate a checkerboard pattern and store it
  * in the pixel array.
  */
-void RGBpixmap::makeCheckerBoard()
-{
+void RGBpixmap::makeCheckerBoard() {
 	// make checkerboard pattern
 	nRows = nCols = 64;
 	pixel = new mRGB[3 * nRows * nCols];
@@ -74,8 +72,7 @@ void RGBpixmap::makeCheckerBoard()
  * 
  * @param textureName The name of the texture that will be set up.
  */
-void RGBpixmap::setTexture(GLuint textureName)
-{
+void RGBpixmap::setTexture(GLuint textureName) {
 	// bind the given texture 
 	glBindTexture(GL_TEXTURE_2D,textureName);
 
@@ -133,7 +130,7 @@ void RGBpixmap::setTexture(GLuint textureName)
  * Read two bytes from an input stream and combine them
  * to form a 16-bit unsigned short integer.
  */
-ushort getShort(){
+ushort getShort() {
 	char ic;
 	ushort ip;
 	inf.get(ic);
@@ -148,8 +145,7 @@ ushort getShort(){
  * Read four bytes from an input stream and combine them
  * to form a 32-bit unsigned long integer.
  */
-ulong getLong()
-{
+ulong getLong() {
 	ulong ip = 0;
 	char ic = 0;
 	unsigned char uc = ic;
@@ -167,8 +163,7 @@ ulong getLong()
  *
  * @param fname The file name (including path) of the BMP image file to be read.
  */
-void RGBpixmap::readBMPFile( char* fname)
-{
+void RGBpixmap::readBMPFile( char* fname) {
 	// open the given file in binary mode
 	inf.open(fname, ios::in | ios::binary); 
 	if(!inf) {
