@@ -1154,7 +1154,7 @@ static void display(void) {
             plane();
         glPopMatrix();
 
-        // render text for homescreen
+        // render text for start menu
         drawStrokeText(const_cast<char*>("Press G to Start"), -1, -1, 0);
         drawStrokeText2(const_cast<char*>("Plane Game"), -2, 0, 0);
     }
@@ -1214,14 +1214,14 @@ static void key(unsigned char key, int x, int y) {
             rotZ -= rotFrac;
             break;
 
-        // move the character right
+        // move the character left
         case 'a':
             tX += frac;
             rotX -= rotFrac * 3;
             rotY += rotFrac / 2;
             break;
 
-        // move the character left
+        // move the character right
         case 'd':
             tX -= frac;
             rotX += rotFrac * 3;
@@ -1272,7 +1272,7 @@ int main(int argc, char *argv[]) {
     // initialize GLUT
     glutInit(&argc, argv);
 
-    // set intial window position and size
+    // set initial window position and size
     glutInitWindowPosition(0, 0);
 	glutInitWindowSize(1366, 720);
 
@@ -1280,7 +1280,7 @@ int main(int argc, char *argv[]) {
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH | GLUT_RGBA);
 
     // create a window with the "GLUT Shapes" title
-    glutCreateWindow("GLUT Shapes");
+    glutCreateWindow("CS155 Final Project, Megan Chen & Julia Hsing");
 
     // register callback functions
     glutReshapeFunc(resize);    // handle window resize
@@ -1291,8 +1291,10 @@ int main(int argc, char *argv[]) {
     // play a sound file
     // PlaySound("starwars.wav", NULL, SND_ASYNC | SND_FILENAME| SND_LOOP);
 
-    // set clear color and enable face culling
+    // set clear color
     glClearColor(1, 1, 1, 1);
+
+    // enable face culling
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
 
