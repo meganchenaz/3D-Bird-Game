@@ -736,6 +736,76 @@ void plane() {
 
 
 /**
+ * Draw a bird.
+ */
+void bird() {
+    const double t = glutGet(GLUT_ELAPSED_TIME) / 1000.0;
+    double a = t * 90.0;
+
+    // body (white sphere)
+    glColor3d(1.0, 1.0, 1.0);
+    glPushMatrix();
+    glTranslated(0, 0, 0);
+    glScaled(0.9, 0.9, 0.9); // Adjusted size
+    glutSolidSphere(1, 30, 30);
+    glPopMatrix();
+
+    // wings
+    glColor3d(1.0, 1.0, 1.0);
+    glPushMatrix();
+    glTranslated(0, 0, 0);
+    glScaled(0.6, 0.2, 1.6); // Adjusted size
+    glutSolidSphere(1, 30, 30);
+    glPopMatrix();
+
+    // draw beak (yellow cone)
+    glColor3d(1.0, 1.0, 0.0);
+    glPushMatrix();
+    glTranslated(0.85, 0, 0); // Adjusted position
+    glRotated(90, 0, 1, 0);
+    glScaled(0.3, 0.3, 0.2);
+    glutSolidCone(0.5, 1.5, 30, 30);
+    glPopMatrix();
+
+    // draw eyes (black spheres)
+    glColor3d(0.0, 0.0, 0.0);
+    glPushMatrix();
+    glTranslated(0.85, 0.3, 0.3); // Adjusted position
+    glutSolidSphere(0.1, 30, 30);
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslated(0.85, 0.3, -0.3); // Adjusted position
+    glutSolidSphere(0.1, 30, 30);
+    glPopMatrix();
+
+    // draw comb (red partial spheres)
+    glColor3d(1.0, 0.0, 0.0);
+    glPushMatrix();
+    glTranslated(0.4, 0.8, 0); // Adjusted position
+    glRotated(90, 0, 1, 0);
+    glScaled(0.5, 0.5, 0.5);
+    glutSolidSphere(0.5, 30, 30);
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslated(0, 1, 0); // Adjusted position
+    glRotated(90, 0, 1, 0);
+    glScaled(0.5, 0.5, 0.5);
+    glutSolidSphere(0.5, 30, 30);
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslated(-0.4, 0.8, 0); // Adjusted position
+    glRotated(90, 0, 1, 0);
+    glScaled(0.5, 0.5, 0.5);
+    glutSolidSphere(0.5, 30, 30);
+    glPopMatrix();
+}
+
+
+
+/**
  * Draw a house, composed of one main cube and four smaller 
  * cubes that represent windows and doors.
  *
@@ -916,7 +986,7 @@ void draw() {
         glRotated(rotY, 0, 1, 0);
         glRotated(rotZ, 0, 0, 1);
         glScaled(0.4, 0.4, 0.4);
-        plane();
+        bird();
     glPopMatrix();
 
     // draw the different environments
@@ -1099,7 +1169,7 @@ static void display(void) {
     double a = t * 90.0;
     double aa = a;
 
-    if(!rot) {
+    if (!rot) {
         a = 0;
     }
 
@@ -1146,12 +1216,12 @@ static void display(void) {
         }
     }
     else {
-        // draw the rotating plane
+        // draw the rotating bird
         glPushMatrix();
             glTranslated(0, 3, 0);
             glRotated(aa, 0, 1, 0);
             glScaled(1.5, 1.5, 1.5);
-            plane();
+            bird();
         glPopMatrix();
 
         // render text for start menu
