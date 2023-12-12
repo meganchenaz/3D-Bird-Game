@@ -1053,12 +1053,10 @@ void draw() {
     if (rotZ > 0) rotZ -= angleBackFrac;
     if (rotZ < 0) rotZ += angleBackFrac;
 
-    /*
     // increase the animation speed and limit it to
     // a max value (currently set to 0.7)
-    speed += 0.0001;
+    speed += 0.000001;
     if( speed >= 0.7) speed = 0.7;
-    */
 }
 
 
