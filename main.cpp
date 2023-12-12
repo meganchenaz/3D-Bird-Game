@@ -671,13 +671,13 @@ void bird() {
     double a = t * 90.0;
 
     float lifeColor = 1.0;
-    // color factor is 0.01, if score is less than 5 (close to black)
+    // color factor is 0.2, if score is less than 5 (close to black)
     if (SCORE < 5) {
-        lifeColor = ((float) SCORE / 20.0) + 0.01;
+        lifeColor = ((float) SCORE / 20.0) + 0.2;
     }
-    // color factor is 0.25, if score is between 5 and 10
+    // color factor is 0.35 if score is between 5 and 10
     else if (SCORE < 10) {
-        lifeColor = (((float)SCORE - 5.0) / 20.0) + 0.25;
+        lifeColor = (((float)SCORE - 5.0) / 20.0) + 0.35;
     }
     // color factor is 0.5, if score is between 10 and 20
     else if (SCORE < 20) {
@@ -1388,7 +1388,7 @@ static void key(unsigned char key, int x, int y) {
         SCORE = initScore;
         tX = 0;
         tY = 0;
-        glClearColor(0.1, 0.2, 0.3, 1);
+        glClearColor(0, 0, 0, 1);
         break;
 
     // switch to the start menu
