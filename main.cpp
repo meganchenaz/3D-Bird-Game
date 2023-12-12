@@ -1348,7 +1348,7 @@ static void display(void) {
 
         // end game if score is negative
         if (SCORE < 0) {
-            SCORE = initScore;
+            // SCORE = initScore;
             START = false;
         }
         else {
@@ -1482,7 +1482,7 @@ static void key(unsigned char key, int x, int y) {
         SCORE = initScore;
         tX = 0;
         tY = 0;
-        glClearColor(0, 0, 0, 1);
+        glClearColor(0.1, 0.2, 0.3, 1);
         break;
 
         // switch to the start menu
