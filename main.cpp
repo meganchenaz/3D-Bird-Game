@@ -2,6 +2,7 @@
 #include <GL/glut.h>
 #include <stdlib.h>
 #include "RGBpixmap.h"
+#include <iostream>
 #define rad (3.1416/180)
 #define EN_SIZE 20
 // #include<bits/stdc++.h>
@@ -12,6 +13,7 @@ RGBpixmap pix[6];
 
 // global variables
 int TIME = 0;
+int SCORE = 2;
 int tola[5000][5000];
 
 // camera parameters
@@ -20,7 +22,7 @@ float angle = 0;
 float radius = 0;
 float theta = 0;
 float slope = 0;
-float speed = 0.3;
+float speed = 0.1;
 float angleBackFrac = 0.2;
 float xEye = 0.0f, yEye = 5.0f, zEye = 30.0f;
 float cenX = 0, cenY = 0, cenZ = 0, roll = 0;
@@ -972,6 +974,11 @@ void draw() {
     // update the global time variable with the elapsed time
     TIME = t;
 
+    if (TIME % 10 == 0) {
+        cout << "ADDING TO SCORE: " << SCORE << endl;
+        SCORE += 1;
+    }
+
     // draw the plane
     if (rotX > 11) rotX = 11;
     if (rotX < -11) rotX = -11;
@@ -1060,8 +1067,8 @@ void draw() {
 
     // increase the animation speed and limit it to 
     // a max value (currently set to 0.7)
-    speed += 0.0002;
-    if( speed >= 0.7) speed = 0.7;
+    //speed += 0.0002;
+    //if( speed >= 0.7) speed = 0.7;
 }
 
 
@@ -1195,6 +1202,7 @@ static void display(void) {
         // render text 
         drawStrokeText(const_cast<char*>("UP: W, DOWN: S, LEFT: A, RIGHT: D, MAIN MENU: M"), -8, 0.9, 0);  // user instructions
         drawStrokeText(const_cast<char*>("TIME : "), 3, 0, 0);                                             // time display
+        drawStrokeText(const_cast<char*>("SCORE : "), 5, 0, 0);                                             // score display
 
         // extract elapsed time digits
         int mod,number = 0;
@@ -1205,7 +1213,7 @@ static void display(void) {
             TIME /= 10;
         }
 
-        // render the digits
+        // render time digits
         float tmp = 0;
         while(number) {
             // convert digit to ASCII and render them
@@ -1213,6 +1221,27 @@ static void display(void) {
             drawStrokeChar(mod + 48, 4 + tmp, 0, 0);
             number /= 10;
             tmp += 0.2;
+        }
+
+        // extract score digits
+        // use tempScore so we don't change the actual SCORE variable
+        int tempScore = SCORE;
+        int modS, numberS = 0;
+        while (tempScore) {
+            // store the digits in reverse order
+            modS = tempScore % 10;
+            numberS = numberS * 10 + modS;
+            tempScore /= 10;
+        }
+
+        // render score digits
+        float tmpS = 0;
+        while (numberS) {
+            // convert digit to ASCII and render them
+            modS = numberS % 10;
+            drawStrokeChar(modS + 48, 6.5 + tmpS, 0, 0);
+            numberS /= 10;
+            tmpS += 0.2;
         }
     }
     else {
@@ -1241,7 +1270,7 @@ static void display(void) {
  * @param x, y The mouse's cursor position during the key press.
  */
 static void key(unsigned char key, int x, int y) {
-    float frac = 0.3;
+    float frac = 0.7;
     float rotFrac = 1;
 
     switch (key)
