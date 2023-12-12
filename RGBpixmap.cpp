@@ -1,3 +1,8 @@
+/*
+ * CS155 Final Project: 3D Bird Game
+ * Megan Chen
+ * Julia Hsing
+ */
 
 #include <fstream>
 #include <iostream>

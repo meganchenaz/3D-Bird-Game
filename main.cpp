@@ -1,3 +1,9 @@
+/*
+ * CS155 Final Project: 3D Bird Game
+ * Megan Chen
+ * Julia Hsing
+ */
+
 #include<windows.h>
 #include <GL/glut.h>
 #include <stdlib.h>
