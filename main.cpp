@@ -16,7 +16,8 @@ RGBpixmap pix[6];
 
 // global variables
 int TIME = 0;
-int SCORE = 0;
+const int initScore = 20;
+int SCORE = initScore;
 int tola[5000][5000];
 
 // camera parameters
@@ -68,6 +69,12 @@ std::uniform_real_distribution<float> distributionX(minX, maxX);
 std::uniform_real_distribution<float> distributionY(minY, maxY);
 std::uniform_real_distribution<float> distributionZ(minZ, maxZ);
 
+// distribution for pellet color
+std::uniform_int_distribution<int> distributionColor(0, 1);
+
+// track Day/Night mode
+bool isDayMode = true;
+
 const int pelletCount = 7;
 float tZ[7] = { -8 , -20, -40, -60, -80, -100, -120 };
 struct {
@@ -75,6 +82,7 @@ struct {
     float posY;
     float posZ;
     bool alrHit;
+    int color;
 } pellet[pelletCount];
 
 /**
@@ -772,8 +780,23 @@ void bird() {
     const double t = glutGet(GLUT_ELAPSED_TIME) / 1000.0;
     double a = t * 90.0;
 
+    float lifeColor = 1.0;
+    // factor is 0 if score is less than 5
+    if (SCORE < 5) {
+        // warn bird is dying
+        lifeColor = ((float) SCORE / 20.0) + 0.01;
+    }
+    // factor is 0.25 if score is between 5 and 10
+    else if (SCORE < 10) {
+        lifeColor = (((float)SCORE - 5.0) / 20.0) + 0.25;
+    }
+    // factor is 0.5 if score is between 10 and 20
+    else if (SCORE < 20) {
+        lifeColor = (((float)SCORE - 10.0) / 20.0) + 0.5;
+    }
+
     // body (white sphere)
-    glColor3d(1.0, 1.0, 1.0);
+    glColor3d(1.0 * lifeColor, 1.0 * lifeColor, 1.0 * lifeColor);
     glPushMatrix();
     glTranslated(0, 0, 0);
     glScaled(0.9, 0.9, 0.9);
@@ -781,7 +804,7 @@ void bird() {
     glPopMatrix();
 
     // wings
-    glColor3d(1.0, 1.0, 1.0);
+    glColor3d(1.0 * lifeColor, 1.0 * lifeColor, 1.0 * lifeColor);
     glPushMatrix();
     glTranslated(0, 0, 0);
     glScaled(0.6, 0.2, 1.6);
@@ -789,7 +812,7 @@ void bird() {
     glPopMatrix();
 
     // draw beak (yellow cone)
-    glColor3d(1.0, 1.0, 0.0);
+    glColor3d(1.0 * lifeColor, 1.0 * lifeColor, 0.0);
     glPushMatrix();
     glTranslated(0.85, 0, 0);
     glRotated(90, 0, 1, 0);
@@ -810,7 +833,7 @@ void bird() {
     glPopMatrix();
 
     // draw comb (red partial spheres)
-    glColor3d(1.0, 0.0, 0.0);
+    glColor3d(1.0 * lifeColor, 0.0, 0.0);
     glPushMatrix();
     glTranslated(0.4, 0.8, 0);
     glRotated(90, 0, 1, 0);
@@ -949,7 +972,18 @@ void environment(int n) {
     glPopMatrix();
 
     // draw the pellets
-    glColor3d(0, 1, 0.1);                            // light green
+    float colorFact = 1.0;
+    if (pellet[n].alrHit) {
+        colorFact = 0.3;
+    }
+
+    if (pellet[n].color == 0) {
+        glColor3d(0, 1 * colorFact, 0.1);
+    }
+    else {
+        glColor3d(1 * colorFact, 0, 0.1);
+    }
+
     glPushMatrix();
     glTranslated(pellet[n].posX, pellet[n].posY + 1, 0);
     glScaled(0.3, 0.3, 0.3);
@@ -996,14 +1030,6 @@ int checkCollision(double pelletX, double pelletY, double pelletZ) {
     double zDiff = (birdPosZ + pelletZ) * 1;
     double distance = sqrt(pow(xDiff, 2) + pow(yDiff, 2) + pow(zDiff, 2));
 
-    // Assuming a collision occurs when the distance is less than a threshold
-    if (pelletZ < 1 && pelletZ > -1) {
-        std::cout << "birdPos: " << birdPosX << ", " << birdPosY << ", " << birdPosZ << std::endl;
-        std::cout << "pelletPos: " << pelletX << ", " << pelletY << ", " << pelletZ << std::endl;
-        std::cout << "tPos: " << tX << ", " << tY << ", " << tZ << std::endl;
-        std::cout << distance << std::endl;
-    }
-
     if (distance < 1) {
         return 1;  // Collision detected
     }
@@ -1044,10 +1070,24 @@ void draw() {
     glPopMatrix();
 
     // draw the different environments
-    if (tX >= 4.1) tX = 4.1;
-    if (tX <= -4.1) tX = -4.1;
-    if (tY > 0.1) tY = 0.1;
-    if (tY < -15) tY = -15;
+    if (tX >= 4.1) {
+        tX = 4.1;
+        SCORE--;    // decrement score if hits left side
+    }
+
+    if (tX <= -4.1) {
+        tX = -4.1;
+        SCORE--;
+    }
+
+    if (tY > 0.1) {
+        tY = 0;
+        SCORE--;
+    }
+
+    if (tY < -15) {
+        tY = -15;
+    }
 
     for (int i = 0; i < pelletCount; i++) {
         glPushMatrix();
@@ -1069,6 +1109,7 @@ void draw() {
             pellet[i].posX = distributionX(gen);
             pellet[i].posY = distributionY(gen);
             pellet[i].posZ = distributionZ(gen);
+            pellet[i].color = distributionColor(gen);
             tZ[i] = -110;
             pellet[i].alrHit = false;
         }
@@ -1079,7 +1120,17 @@ void draw() {
         // check for collisions
         if (!pellet[i].alrHit && checkCollision(pellet[i].posX, pellet[i].posY, pellet[i].posZ)) {
             pellet[i].alrHit = true;
-            SCORE += 1;
+            if (pellet[i].color == 0) {
+                SCORE += 2;
+            }
+            else {
+                SCORE--;
+            }
+        }
+        
+        // move the pellet down
+        if (pellet[i].alrHit == true) {
+            pellet[i].posY -= 0.075;
         }
     }
 
@@ -1118,6 +1169,9 @@ void drawBitmapText(char* str, float x, float y, float z) {
     // set the position for 3D rasterization
     glRasterPos3f(x, y + 8, z);
 
+    // font thickness
+    glLineWidth(2);
+
     // loop through each character in the input string
     for (c = str; *c != '\0'; c++) {
         // use GLUT to render each character in Times Roman, size 10 font
@@ -1138,11 +1192,22 @@ void drawStrokeText(char* str, int x, int y, int z) {
     // push the current matrix onto the matrix stack
     glPushMatrix();
 
+    // set font color
+    if (isDayMode) {
+        glColor3f(0, 0, 0);
+    }
+    else {
+        glColor3f(255, 255, 255);
+    }
+
     // translate to the specified position
     glTranslatef(x, y + 8, z);
 
     // scale the text
     glScalef(0.002f, 0.002f, z);
+
+    // font thickness
+    glLineWidth(2);
 
     // loop through each character in the input string
     for (c = str; *c != '\0'; c++) {
@@ -1167,11 +1232,22 @@ void drawStrokeText2(char* str, int x, int y, int z) {
     // push the current matrix onto the matrix stack
     glPushMatrix();
 
+    // set font color
+    if (isDayMode) {
+        glColor3f(0, 0, 0);
+    }
+    else {
+        glColor3f(255, 255, 255);
+    }
+
     // translate to a specified position
     glTranslatef(x, y + 8, z);
 
     // scale the text
     glScalef(0.005f, 0.005f, z);
+
+    // font thickness
+    glLineWidth(2);
 
     // loop through each character in the input string
     for (c = str; *c != '\0'; c++) {
@@ -1192,6 +1268,18 @@ void drawStrokeText2(char* str, int x, int y, int z) {
  */
 void drawStrokeChar(char c, float x, float y, float z) {
     glPushMatrix();
+
+    // set font color
+    if (isDayMode) {
+        glColor3f(0, 0, 0);
+    }
+    else {
+        glColor3f(255, 255, 255);
+    }
+
+    // font thickness
+    glLineWidth(2);
+
     glTranslatef(x, y + 8, z);
     glScalef(0.002f, 0.002f, z);
     glutStrokeCharacter(GLUT_STROKE_ROMAN, c);
@@ -1258,25 +1346,32 @@ static void display(void) {
             tmp += 0.2;
         }
 
-        // extract score digits
-        int score = 0, tempScore = SCORE;
-        digCount = 0;
-        do {
-            // store the digits in reverse order
-            mod = tempScore % 10;
-            score = score * 10 + mod;
-            tempScore /= 10;
-            digCount++;
-        } while (tempScore);
+        // end game if score is negative
+        if (SCORE < 0) {
+            SCORE = initScore;
+            START = false;
+        }
+        else {
+            // extract score digits
+            int score = 0, tempScore = SCORE;
+            digCount = 0;
+            do {
+                // store the digits in reverse order
+                mod = tempScore % 10;
+                score = score * 10 + mod;
+                tempScore /= 10;
+                digCount++;
+            } while (tempScore);
 
-        // render the score digits
-        tmp = 0;
-        while (digCount--) {
-            // convert digit to ASCII and render them
-            mod = score % 10;
-            drawStrokeChar(mod + 48, 4.5 + tmp, 0, 0);
-            score /= 10;
-            tmp += 0.2;
+            // render the score digits
+            tmp = 0;
+            while (digCount--) {
+                // convert digit to ASCII and render them
+                mod = score % 10;
+                drawStrokeChar(mod + 48, 4.5 + tmp, 0, 0);
+                score /= 10;
+                tmp += 0.2;
+            }
         }
     }
     else {
@@ -1289,8 +1384,16 @@ static void display(void) {
         glPopMatrix();
 
         // render text for start menu
-        drawStrokeText(const_cast<char*>("Press G to Start"), -1, -1, 0);
-        drawStrokeText2(const_cast<char*>("Plane Game"), -2, 0, 0);
+        if (SCORE < 0) {
+            drawStrokeText2(const_cast<char*>("GAME OVER"), -2, 0, 0);
+            drawStrokeText(const_cast<char*>("Press 1 to play again in Day Mode."), -2, -1, 0);
+            drawStrokeText(const_cast<char*>("Press 2 to play again in Night Mode"), -2, -2, 0);
+        }
+        else {
+            drawStrokeText2(const_cast<char*>("Bird Game"), -2, 0, 0);
+            drawStrokeText(const_cast<char*>("Press 1 to play in Day Mode."), -2, -1, 0);
+            drawStrokeText(const_cast<char*>("Press 2 to play in Night Mode."), -2, -2, 0);
+        }
     }
 
     // swap the front and back buffers to display the rendered image
@@ -1362,9 +1465,24 @@ static void key(unsigned char key, int x, int y) {
         rotY -= rotFrac / 2;
         break;
 
-        // switch to the game
-    case 'g':
+        // switch to the game in Day Mode
+    case '1':
         START = true;
+        isDayMode = true;
+        SCORE = initScore;
+        tX = 0;
+        tY = 0;
+        glClearColor(1, 1, 1, 1);
+        break;
+
+        // switch to the game in Night Mode
+    case '2':
+        START = true;
+        isDayMode = false;
+        SCORE = initScore;
+        tX = 0;
+        tY = 0;
+        glClearColor(0, 0, 0, 1);
         break;
 
         // switch to the start menu
@@ -1403,12 +1521,15 @@ const GLfloat high_shininess[] = { 100.0f };
 /* PROGRAM ENTRY POINT */
 
 int main(int argc, char* argv[]) {
+    // create pellets in random positions
     for (int i = 0; i < pelletCount; i++) {
         pellet[i].posX = distributionX(gen);
         pellet[i].posY = distributionY(gen);
         pellet[i].posZ = distributionZ(gen);
+        pellet[i].color = distributionColor(gen);
         pellet[i].alrHit = false;
     }
+
     // initialize GLUT
     glutInit(&argc, argv);
 
