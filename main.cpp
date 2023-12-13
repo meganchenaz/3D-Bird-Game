@@ -21,6 +21,7 @@ using namespace std;
 RGBpixmap pix[6];
 
 // global variables
+int startTime;
 int TIME = 0;
 const int initScore = 20;
 int SCORE = initScore;
@@ -667,7 +668,7 @@ void drawShohidMinar() {
  * Draw a bird.
  */
 void bird() {
-    const double t = glutGet(GLUT_ELAPSED_TIME) / 1000.0;
+    const double t = (glutGet(GLUT_ELAPSED_TIME) / 1000.0) - startTime;
     double a = t * 90.0;
 
     float lifeColor = 1.0;
@@ -948,7 +949,7 @@ void draw() {
     double a = t * 90.0;
 
     // update the global time variable with the elapsed time
-    TIME = t;
+    TIME = t - startTime;
 
     // draw the bird
     if (rotX > 11) rotX = 11;
@@ -1374,6 +1375,7 @@ static void key(unsigned char key, int x, int y) {
         START = true;
         isDayMode = true;
         SCORE = initScore;
+        startTime = glutGet(GLUT_ELAPSED_TIME) / 1000.0;
         tX = 0;
         tY = 0;
         glClearColor(1, 1, 1, 1);
@@ -1384,6 +1386,7 @@ static void key(unsigned char key, int x, int y) {
         START = true;
         isDayMode = false;
         SCORE = initScore;
+        startTime = glutGet(GLUT_ELAPSED_TIME) / 1000.0;
         tX = 0;
         tY = 0;
         glClearColor(0, 0, 0, 1);
@@ -1444,7 +1447,7 @@ int main(int argc, char* argv[]) {
     // set display mode with RGB, double buffering, depth buffer, and RGBA color
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH | GLUT_RGBA);
 
-    // create a window with the "GLUT Shapes" title
+    // create a window with a title
     glutCreateWindow("CS155 Final Project, Megan Chen & Julia Hsing");
 
     // register callback functions
